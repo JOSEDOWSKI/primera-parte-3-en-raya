@@ -1,0 +1,97 @@
+//José Molina - Ciencia de la Computación 
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+#define STRING(num) #num
+using namespace std;
+
+char opcion(char opcion_escogida)//pide "X" o "O", pero puede recibir "x" y "o". despues de escoger le da como predeterminado la otra opcion el otro jugador
+{                          
+	char otra_opcion;
+	if(opcion_escogida=='X')
+  {
+		otra_opcion='O';
+		return otra_opcion;
+	}
+  else if(opcion_escogida=='x')
+  {
+		otra_opcion='O';
+		return otra_opcion;
+	}
+	else if(opcion_escogida=='O')
+  { 
+		otra_opcion='X';
+		return otra_opcion;
+  }
+  else if(opcion_escogida=='o')
+  {
+		otra_opcion='X';
+		return otra_opcion;
+    
+	}else
+  {
+		cout<<"escoge bien "<<"\n"; 
+	}
+	return otra_opcion; 
+}
+	
+
+	
+
+void Tablero(string tablero[]){ //creamos una funcion para imprimir el tablero 
+	int i;
+  cout<<"|-----------|";
+  cout<<"\n";
+	for( i=0; i<3; i++)
+  {
+    cout<<"|";
+		cout<<tablero[i];
+    cout<<"|";
+		if(i != 2)
+    {
+			cout<<"\n";
+      cout<<"|---|---|---|";
+      cout<<"\n";
+		}
+	}
+  cout<<"\n";
+  cout<<"|-----------|";
+  cout<<"\n";
+}
+
+string *colocar(char posicion,char opcion, string tablero[]){ //funcion para poner la opcion escogida en la posicion correspondiente
+		for(int i=0; i<3; i++)
+    {
+			for(int j=1; j<=9; j+=4) 
+      {
+				if(posicion == tablero[i][j])//comparamos la posicion en el tablero gracias al for anidado
+        {
+					tablero[i][j]=opcion; // aqui se intercambia la opcion escogida por la posicion especificada
+				}
+			}
+		}
+	return tablero;
+}
+
+int main() //inicio del programa
+{
+
+  cout<<"   BIENVENIDOS AL JUEGO DE 3 EN RAYA!"<<endl<<endl<<endl;
+  string nombre1(STRING(nombre1));
+  cout<<"nombre del jugador 1: ";
+  cin>>nombre1;
+	string tablero[3]={{" 1 | 2 | 3 "},{" 4 | 5 | 6 "},{" 7 | 8 | 9 "}}; // creamos un arreglo para dibujar la matriz
+  char opcion_escogida;//creamos char correspondiente para la funcion de opcion
+	char otra_opcion;//creamos el char para la otra opcion predeterminada en la funcion opcion
+	char posicion;// creamos la variable que se utilizara en la funcion colocar
+	cout<<nombre1<<" elige una opcion entre X o O : ";
+  cin>>opcion_escogida;
+	system("cls");// actualizamos pantalla
+	otra_opcion=opcion(opcion_escogida);//llamamos la funcion de escoger para determinar la opcion del jugador 1 y la del jugador 2
+	Tablero(tablero);//dibujamos el tablero
+	cout<<opcion_escogida<<" donde desea colocar la ficha? : ";cin>>posicion;
+	system("cls"); // actualizamos pantalla
+	Tablero(colocar(posicion, opcion_escogida, tablero));//llamamos la funcion tablero para actualizar las opciones del jugador y colocar su opcion en la casilla correspondiente
+	
+	return 0;
+}
